@@ -24,6 +24,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "STM_MY_LCD16X2.h"
 
 /* USER CODE END Includes */
 
@@ -103,19 +104,44 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
+  LCD1602_Begin4BIT(RS_GPIO_Port,RS_Pin,E_Pin,D4_GPIO_Port,D4_Pin,D5_Pin,D6_Pin,D7_Pin);
+
+  LCD1602_clear();
+  LCD1602_1stLine();
+  LCD1602_print("Start LCD");
+  HAL_Delay(2000);
+  LCD1602_clear();
+  LCD1602_1stLine();	LCD1602_print("Zeus LCD1602");
+  LCD1602_noCursor(); LCD1602_noBlink();
+  LCD1602_2ndLine();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   Buzzer_OnOff(1);
+
+  uint8_t LD2_flag= 0; // 0 means LD2 off
+
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-	  printf("loop\r\n"); HAL_Delay(1000);
-	  Buzzer_OnOff(1);
+	  LCD1602_2ndLine();
+	  if( LD2_flag == 0) {
+		  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+		  LCD1602_print("LD2 off");
+		  LD2_flag =1;
+		  HAL_Delay(1000);
+	  }
+	  else {
+		  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+		  LCD1602_print("LD2  on");
+		  LD2_flag =0;
+		  HAL_Delay(1000);
+	  }
+	  //Buzzer_OnOff(1);
 
 	  //Buzzer_OnOff(1);
   }
@@ -143,9 +169,9 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = 16;
-  RCC_OscInitStruct.PLL.PLLN = 336;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
+  RCC_OscInitStruct.PLL.PLLM = 8;
+  RCC_OscInitStruct.PLL.PLLN = 84;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 7;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
