@@ -25,6 +25,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "STM_MY_LCD16X2.h"
+//asdkfjaslkdjflasdkjf
+
 
 /* USER CODE END Includes */
 
