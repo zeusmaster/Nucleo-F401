@@ -25,7 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "STM_MY_LCD16X2.h"
-//asdkfjaslkdjflasdkjf
+#include "Zeus_define.h"
 
 
 /* USER CODE END Includes */
@@ -59,20 +59,7 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-int _write(int file, char *data, int len)
-{
-	HAL_StatusTypeDef status = HAL_UART_Transmit(&huart2,(uint8_t *)data,len,1000);
-	return (status == HAL_OK ? len : 0);
-}
 
-void Buzzer_OnOff(int times)
-{
-	for(int i=0;i< times ; i++)
-	{
-		HAL_GPIO_WritePin(Buzzer_GPIO_Port, Buzzer_Pin, GPIO_PIN_SET); HAL_Delay(10);
-		HAL_GPIO_WritePin(Buzzer_GPIO_Port, Buzzer_Pin, GPIO_PIN_RESET); HAL_Delay(10);
-	}
-}
 /* USER CODE END 0 */
 
 /**
@@ -113,7 +100,7 @@ int main(void)
   LCD1602_print("Start LCD");
   HAL_Delay(2000);
   LCD1602_clear();
-  LCD1602_1stLine();	LCD1602_print("Zeus LCD1602");
+  LCD1602_1stLine();	LCD1602_print("Zeus Key Input");
   LCD1602_noCursor(); LCD1602_noBlink();
   LCD1602_2ndLine();
 
@@ -123,29 +110,35 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   Buzzer_OnOff(1);
 
-  uint8_t LD2_flag= 0; // 0 means LD2 off
-
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  LCD1602_2ndLine();
-	  if( LD2_flag == 0) {
-		  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-		  LCD1602_print("LD2 off");
-		  LD2_flag =1;
-		  HAL_Delay(1000);
-	  }
-	  else {
-		  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-		  LCD1602_print("LD2  on");
-		  LD2_flag =0;
-		  HAL_Delay(1000);
-	  }
-	  //Buzzer_OnOff(1);
+	  switch( Key_input() ) {
+	  case KEY_UP:
+		  LCD1602_2ndLine();
+		  LCD1602_print("UP    pressed");
+		  break;
 
-	  //Buzzer_OnOff(1);
+	  case KEY_DOWN:
+		  LCD1602_2ndLine();
+		  LCD1602_print("DOWN  pressed");
+		  break;
+
+	  case KEY_RIGHT:
+		  LCD1602_2ndLine();
+		  LCD1602_print("RIGHT pressed");
+		  break;
+
+	  case KEY_LEFT:
+		  LCD1602_2ndLine();
+		  LCD1602_print("LEFT  pressed");
+		  break;
+
+	  default:
+		  break;
+	  }
   }
   /* USER CODE END 3 */
 }
@@ -166,11 +159,10 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 8;
   RCC_OscInitStruct.PLL.PLLN = 84;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;

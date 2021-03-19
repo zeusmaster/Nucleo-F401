@@ -20,6 +20,7 @@
 #include <stdbool.h>
 #include "stm32f4xx_hal.h"
 #include <stdlib.h>
+#include "stdio.h"
 
 //***** List of COMMANDS *****//
 #define LCD_CLEARDISPLAY 		0x01
@@ -53,20 +54,20 @@
 //***** Functions prototypes *****//
 //Private functions
 //1) Enable EN pulse
-static void LCD1602_EnablePulse(void);
+void LCD1602_EnablePulse(void);
 //2) RS control
-static void LCD1602_RS(bool state);
+void LCD1602_RS(bool state);
 //3) Write Parallel interface
-static void LCD1602_write(uint8_t byte);
+void LCD1602_write(uint8_t byte);
 //4) Microsecond delay functions
-static void LCD1602_TIM_Config(void);
-static void LCD1602_TIM_MicorSecDelay(uint32_t uSecDelay);
+void LCD1602_TIM_Config(void);
+void LCD1602_TIM_MicorSecDelay(uint32_t uSecDelay);
 //5) Write command
-static void LCD1602_writeCommand(uint8_t command);
+void LCD1602_writeCommand(uint8_t command);
 //6) Write 8 bits data
-static void LCD1602_writeData(uint8_t data);
+void LCD1602_writeData(uint8_t data);
 //7) Write 4 bits command, *FOR 4 BITS MODE ONLY*
-static void LCD1602_write4bitCommand(uint8_t nibble);
+void LCD1602_write4bitCommand(uint8_t nibble);
 
 //Public functions
 //1) LCD begin 8 bits function

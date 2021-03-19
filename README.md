@@ -10,3 +10,8 @@
 - HSE활성화 clock를 max로 변경함(84Mhz)
 - PC6~PC11핀을 LCD1602의 작동에 사용함.
 - LD2가 켜지면 LCD에 LD2 on 출력, 반대이면 LD2 off 출력
+
+## 3. Key input(Polling)
+- 윤덕용교수님저 STM32F767정복 코드참조 및 조정사용
+- KEY 4개입력 받아 LCD에 해당방향 표시 (UP/DOWN, LEFT/RIGHT)
+- LCD1602관련 WARING 제거

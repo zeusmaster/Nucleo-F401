@@ -86,6 +86,14 @@ void Error_Handler(void);
 #define RS_GPIO_Port GPIOC
 #define SWO_Pin GPIO_PIN_3
 #define SWO_GPIO_Port GPIOB
+#define Down_Pin GPIO_PIN_4
+#define Down_GPIO_Port GPIOB
+#define Right_Pin GPIO_PIN_5
+#define Right_GPIO_Port GPIOB
+#define Up_Pin GPIO_PIN_6
+#define Up_GPIO_Port GPIOB
+#define Left_Pin GPIO_PIN_7
+#define Left_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

@@ -35,7 +35,7 @@ static uint8_t FunctionSet = 0x38;
 //***** Functions definitions *****//
 //Private functions
 //1) Enable EN pulse
-static void LCD1602_EnablePulse(void)
+void LCD1602_EnablePulse(void)
 {
 	HAL_GPIO_WritePin(PORT_RS_and_E, PIN_E, GPIO_PIN_SET);
 	LCD1602_TIM_MicorSecDelay(writeTimeConstant);
@@ -43,14 +43,14 @@ static void LCD1602_EnablePulse(void)
 	LCD1602_TIM_MicorSecDelay(20);  // ORG VALUE =60
 }
 //2) RS control
-static void LCD1602_RS(bool state)
+void LCD1602_RS(bool state)
 {
 	if(state) HAL_GPIO_WritePin(PORT_RS_and_E, PIN_RS, GPIO_PIN_SET);
 	else HAL_GPIO_WritePin(PORT_RS_and_E, PIN_RS, GPIO_PIN_RESET);
 }
 
 //3) Write Parallel interface
-static void LCD1602_write(uint8_t byte)
+void LCD1602_write(uint8_t byte)
 {
 	uint8_t LSB_nibble = byte&0xF, MSB_nibble = (byte>>4)&0xF;
 	 
@@ -91,7 +91,7 @@ static void LCD1602_write(uint8_t byte)
 	}
 }
 //4) Microsecond delay functions
-static void LCD1602_TIM_Config(void)
+void LCD1602_TIM_Config(void)
 {
 	RCC_ClkInitTypeDef myCLKtypeDef;
 	uint32_t clockSpeed;
@@ -125,7 +125,7 @@ static void LCD1602_TIM_Config(void)
 	TIM3->EGR = 1; 					//Update generate auto
 	TIM3->SR &= ~(0x0001);	//Clear Update interrupt flag
 }
-static void LCD1602_TIM_MicorSecDelay(uint32_t uSecDelay)
+void LCD1602_TIM_MicorSecDelay(uint32_t uSecDelay)
 {
 	TIM3->ARR = uSecDelay-1;
 	TIM3->SR &= ~(0x0001);  // Clear UEV flag
@@ -133,7 +133,7 @@ static void LCD1602_TIM_MicorSecDelay(uint32_t uSecDelay)
 	while((TIM3->SR&0x0001) != 1);
 }
 //5) Write command
-static void LCD1602_writeCommand(uint8_t command)
+void LCD1602_writeCommand(uint8_t command)
 {
 	//Set RS to 0
 	LCD1602_RS(false);
@@ -141,7 +141,7 @@ static void LCD1602_writeCommand(uint8_t command)
 	LCD1602_write(command);
 }
 //6) Write 8 bits data
-static void LCD1602_writeData(uint8_t data)
+void LCD1602_writeData(uint8_t data)
 {
 	//Set RS to 1
 	LCD1602_RS(true);
@@ -149,7 +149,7 @@ static void LCD1602_writeData(uint8_t data)
 	LCD1602_write(data);
 }
 //7) Write 4 bits command, *FOR 4 BITS MODE ONLY*
-static void LCD1602_write4bitCommand(uint8_t nibble)
+void LCD1602_write4bitCommand(uint8_t nibble)
 {
 	uint8_t LSB_nibble = nibble&0xF;
 	//Set RS to 0
@@ -249,7 +249,7 @@ void LCD1602_Begin4BIT(GPIO_TypeDef* PORT_RS_E, uint16_t RS, uint16_t E, GPIO_Ty
 //3) LCD print string
 void LCD1602_print(char string[])
 {
-	for(uint8_t i=0;  i< 16 && string[i]!=NULL; i++)
+	for(uint8_t i=0;  i< 16 && string[i]!= 0 ; i++)
 	{
 		LCD1602_writeData((uint8_t)string[i]);
 	}
