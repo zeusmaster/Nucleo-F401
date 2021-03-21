@@ -18,4 +18,4 @@
 
 ## 4. ADC DMA
 - 가변저항을 이용해 Analog입력 값을 변화시켜 mcu에 입력 digital 값으로 변환
-- 12bit Resolution (0~4095) 출력값을 0~99로 LCD에 표시함
+- 12bit Resolution (0-4095) 출력값을 0-99로 LCD에 표시함
