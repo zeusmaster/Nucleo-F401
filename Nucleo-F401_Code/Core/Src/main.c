@@ -19,6 +19,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
+#include "dma.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -69,6 +71,9 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+	uint16_t Adc_Value[2], NewValue = 0, PreValue = 0;
+	char str[10];
+
 
   /* USER CODE END 1 */
 
@@ -90,8 +95,12 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_USART2_UART_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
+
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t *)Adc_Value, 1);
 
   LCD1602_Begin4BIT(RS_GPIO_Port,RS_Pin,E_Pin,D4_GPIO_Port,D4_Pin,D5_Pin,D6_Pin,D7_Pin);
 
@@ -100,7 +109,7 @@ int main(void)
   LCD1602_print("Start LCD");
   HAL_Delay(2000);
   LCD1602_clear();
-  LCD1602_1stLine();	LCD1602_print("Zeus Key Input");
+  LCD1602_1stLine();	LCD1602_print("Zeus ADC :");
   LCD1602_noCursor(); LCD1602_noBlink();
   LCD1602_2ndLine();
 
@@ -115,6 +124,15 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  NewValue = Adc_Value[0]/41 ; // Newvalue : 0~99
+	  if( PreValue != NewValue ) {
+		  //Buzzer_OnOff(2);
+		  sprintf( str, "%4d", NewValue );
+		  PreValue =NewValue;
+		  LCD1602_setCursor(1, 12);
+		  LCD1602_print( str );
+	  }
+
 	  switch( Key_input() ) {
 	  case KEY_UP:
 		  LCD1602_2ndLine();

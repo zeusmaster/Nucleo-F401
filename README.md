@@ -15,3 +15,7 @@
 - 윤덕용교수님저 STM32F767정복 코드참조 및 조정사용
 - KEY 4개입력 받아 LCD에 해당방향 표시 (UP/DOWN, LEFT/RIGHT)
 - LCD1602관련 WARING 제거
+
+## 4. ADC DMA
+- 가변저항을 이용해 Analog입력 값을 변화시켜 mcu에 입력 digital 값으로 변환
+- 12bit Resolution (0~4095) 출력값을 0~99로 LCD에 표시함
