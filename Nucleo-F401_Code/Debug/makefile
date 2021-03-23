@@ -1,6 +1,5 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (9-2020-q2-update)
 ################################################################################
 
 -include ../makefile.init
@@ -29,12 +28,6 @@ endif
 
 -include ../makefile.defs
 
-OPTIONAL_TOOL_DEPS := \
-$(wildcard ../makefile.defs) \
-$(wildcard ../makefile.init) \
-$(wildcard ../makefile.targets) \
-
-
 BUILD_ARTIFACT_NAME := Nucleo-F401_Code
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX := 
@@ -61,22 +54,22 @@ all: main-build
 main-build: Nucleo-F401_Code.elf secondary-outputs
 
 # Tool invocations
-Nucleo-F401_Code.elf: $(OBJS) $(USER_OBJS) D:\CORTEX_M\STM32F401\Nucleo-F401_Code\STM32F401RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Nucleo-F401_Code.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\CORTEX_M\STM32F401\Nucleo-F401_Code\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Nucleo-F401_Code.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Nucleo-F401_Code.elf: $(OBJS) $(USER_OBJS) D:\Git_Hub\Nucleo-F401\Nucleo-F401_Code\STM32F401RETX_FLASH.ld
+	arm-none-eabi-gcc -o "Nucleo-F401_Code.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Git_Hub\Nucleo-F401\Nucleo-F401_Code\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Nucleo-F401_Code.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+default.size.stdout: $(EXECUTABLES)
 	arm-none-eabi-size  $(EXECUTABLES)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Nucleo-F401_Code.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+Nucleo-F401_Code.list: $(EXECUTABLES)
 	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "Nucleo-F401_Code.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Nucleo-F401_Code.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+Nucleo-F401_Code.bin: $(EXECUTABLES)
 	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "Nucleo-F401_Code.bin"
 	@echo 'Finished building: $@'
 	@echo ' '

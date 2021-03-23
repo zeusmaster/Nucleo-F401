@@ -71,7 +71,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	uint16_t Adc_Value[2], NewValue = 0, PreValue = 0;
+	uint16_t Adc_Value[2];
 	char str[10];
 
 
@@ -119,19 +119,21 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   Buzzer_OnOff(1);
 
+  uint16_t AvgAdc=0;
+
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  NewValue = Adc_Value[0]/41 ; // Newvalue : 0~99
-	  if( PreValue != NewValue ) {
-		  //Buzzer_OnOff(2);
-		  sprintf( str, "%4d", NewValue );
-		  PreValue =NewValue;
-		  LCD1602_setCursor(1, 12);
-		  LCD1602_print( str );
-	  }
+
+	  AvgAdc = Average_ADC(200, 10,Adc_Value);
+
+	  sprintf( str, "%4d", AvgAdc );
+	  LCD1602_setCursor(1, 12);
+	  LCD1602_print( str );
+
+
 
 	  switch( Key_input() ) {
 	  case KEY_UP:

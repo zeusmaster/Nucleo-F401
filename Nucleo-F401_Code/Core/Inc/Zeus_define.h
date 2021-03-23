@@ -25,3 +25,5 @@ int _write(int file, char *data, int len);
 void Buzzer_OnOff(int times);
 
 unsigned char Key_input(void);
+
+uint16_t Average_ADC(uint16_t NumSum, uint8_t NumAvg, uint16_t *Adc);

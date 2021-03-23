@@ -59,3 +59,19 @@ unsigned char Key_input(void)			// input key KEY1~KEY4
     }
 }
 // =================  End of Key function  ====================
+
+// =================  ADC input(Noise clear) ==================
+uint16_t Average_ADC(uint16_t NumSum,uint8_t NumAvg, uint16_t *Adc)
+{
+	double SumAdc =0, AvgAdc=0;
+	for(int j=0; j < NumAvg ;j++ ) {
+		for(int i=0; i< NumSum ; i++ ) {
+			SumAdc += Adc[0];
+		}
+		AvgAdc += (uint16_t)( SumAdc / NumSum );
+		SumAdc = 0;
+	}
+	AvgAdc =(uint16_t)(AvgAdc /NumAvg );
+	return (uint16_t)AvgAdc;
+}
+// =================  End of ADC input(Noise clear) ==================
