@@ -21,12 +21,14 @@
 #include "main.h"
 #include "adc.h"
 #include "dma.h"
+#include "i2c.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "STM_MY_LCD16X2.h"
+#include "stdio.h"
+#include "I2C_LCD1602.h"
 #include "Zeus_define.h"
 
 
@@ -72,7 +74,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 	uint16_t Adc_Value[2];
-	char str[10];
+	char str[16];
 
 
   /* USER CODE END 1 */
@@ -98,20 +100,22 @@ int main(void)
   MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_ADC1_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 
   HAL_ADC_Start_DMA(&hadc1, (uint32_t *)Adc_Value, 1);
 
-  LCD1602_Begin4BIT(RS_GPIO_Port,RS_Pin,E_Pin,D4_GPIO_Port,D4_Pin,D5_Pin,D6_Pin,D7_Pin);
 
-  LCD1602_clear();
-  LCD1602_1stLine();
-  LCD1602_print("Start LCD");
+  I2C_LCD1602_Init();
+
+  I2C_LCD1602_Send_String_XY( 0 , 0, "Welcom Zeus");
+  I2C_LCD1602_Send_String_XY( 0 , 1, "I2C PCF8574");
   HAL_Delay(2000);
-  LCD1602_clear();
-  LCD1602_1stLine();	LCD1602_print("Zeus ADC :");
-  LCD1602_noCursor(); LCD1602_noBlink();
-  LCD1602_2ndLine();
+  I2C_LCD1602_Clear();
+
+  sprintf( str, "start");
+  I2C_LCD1602_Send_string(str);
+
 
   /* USER CODE END 2 */
 
@@ -129,31 +133,28 @@ int main(void)
 
 	  AvgAdc = Average_ADC(200, 10,Adc_Value);
 
-	  sprintf( str, "%4d", AvgAdc );
-	  LCD1602_setCursor(1, 12);
-	  LCD1602_print( str );
+	  sprintf( str, "ADC : %4d", AvgAdc );
+	  I2C_LCD1602_Send_String_XY( 0 , 0, str);
+
+	  //HAL_Delay(500);
 
 
 
 	  switch( Key_input() ) {
 	  case KEY_UP:
-		  LCD1602_2ndLine();
-		  LCD1602_print("UP    pressed");
+		  I2C_LCD1602_Send_String_XY( 0 , 1, "UP    pressed");
 		  break;
 
 	  case KEY_DOWN:
-		  LCD1602_2ndLine();
-		  LCD1602_print("DOWN  pressed");
+		  I2C_LCD1602_Send_String_XY( 0 , 1, "DOWN  pressed");
 		  break;
 
 	  case KEY_RIGHT:
-		  LCD1602_2ndLine();
-		  LCD1602_print("RIGHT pressed");
+		  I2C_LCD1602_Send_String_XY( 0 , 1, "RIGHT pressed");
 		  break;
 
 	  case KEY_LEFT:
-		  LCD1602_2ndLine();
-		  LCD1602_print("LEFT  pressed");
+		  I2C_LCD1602_Send_String_XY( 0 , 1, "LEFT  pressed");
 		  break;
 
 	  default:
