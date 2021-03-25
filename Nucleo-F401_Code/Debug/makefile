@@ -11,6 +11,7 @@ RM := rm -rf
 -include sources.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
+-include Core/Src/u8g/subdir.mk
 -include Core/Src/subdir.mk
 -include subdir.mk
 -include objects.mk
@@ -61,8 +62,8 @@ all: main-build
 main-build: Nucleo-F401_Code.elf secondary-outputs
 
 # Tool invocations
-Nucleo-F401_Code.elf: $(OBJS) $(USER_OBJS) D:\Git_Hub\Nucleo-F401\Nucleo-F401_Code\STM32F401RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Nucleo-F401_Code.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Git_Hub\Nucleo-F401\Nucleo-F401_Code\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Nucleo-F401_Code.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Nucleo-F401_Code.elf: $(OBJS) $(USER_OBJS) D:\Git_Hub\STM32F401\Nucleo-F401_Code\STM32F401RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Nucleo-F401_Code.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Git_Hub\STM32F401\Nucleo-F401_Code\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Nucleo-F401_Code.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -30,7 +30,7 @@
 #include "stdio.h"
 #include "I2C_LCD1602.h"
 #include "Zeus_define.h"
-
+#include "u8g_arm.h"
 
 /* USER CODE END Includes */
 
@@ -52,11 +52,27 @@
 
 /* USER CODE BEGIN PV */
 
+static u8g_t u8g;
+uint8_t Hour=0, Minute=0, Second=0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+
+void u8g_xyputs( uint8_t x, uint8_t y, char *str, uint8_t battery_status);
+void Time_count()
+{
+	Second++;
+	if( Second > 59 )	{
+	  Minute ++;		Second = 0;
+	}
+	if (Minute > 59 ) 	{
+	  Hour++;			 Minute =0;
+	}
+	if( Hour > 11) Hour = 0;
+}
 
 /* USER CODE END PFP */
 
@@ -105,6 +121,7 @@ int main(void)
 
   HAL_ADC_Start_DMA(&hadc1, (uint32_t *)Adc_Value, 1);
 
+  u8g_InitComFn(&u8g,&u8g_dev_ssd1306_128x64_i2c,u8g_com_hw_i2c_fn);
 
   I2C_LCD1602_Init();
 
@@ -124,12 +141,17 @@ int main(void)
   Buzzer_OnOff(1);
 
   uint16_t AvgAdc=0;
+  uint16_t count = 0;
 
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+	  u8g_xyputs( 10, 55, "Zeus SSD1306",count++);
+	  	  Time_count();
+	  	  if( count >100 ) count = 0;
 
 	  AvgAdc = Average_ADC(200, 10,Adc_Value);
 
@@ -208,6 +230,77 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void u8g_battery_status(uint8_t x, uint8_t y, uint8_t percentage)
+{
+	char str[5];
+	u8g_DrawFrame(&u8g, x, y, 18, 7); // battery����
+	u8g_DrawFrame(&u8g, x+18,y+(5/2), 2,3); //battery����ǥ��
+	uint8_t battery_step = 5;
+	if( percentage > 90 ) 		battery_step =5;
+	else if (percentage <= 10 )	battery_step =0;
+	else if (percentage <= 20 )	battery_step =1;
+	else if (percentage <= 40 )	battery_step =2;
+	else if (percentage <= 60 )	battery_step =3;
+	else if (percentage <= 80 )	battery_step =4;
+
+	switch( battery_step )
+	{
+	case 1:
+		u8g_draw_box(&u8g,x+2,y+1,2,5);
+		break;
+	case 2:
+		u8g_draw_box(&u8g,x+2,y+1,2,5);
+		u8g_draw_box(&u8g,x+5,y+1,2,5);
+		break;
+	case 3:
+		u8g_draw_box(&u8g,x+2,y+1,2,5);
+		u8g_draw_box(&u8g,x+5,y+1,2,5);
+		u8g_draw_box(&u8g,x+8,y+1,2,5);
+		break;
+	case 4:
+		u8g_draw_box(&u8g,x+2,y+1,2,5);
+		u8g_draw_box(&u8g,x+5,y+1,2,5);
+		u8g_draw_box(&u8g,x+8,y+1,2,5);
+		u8g_draw_box(&u8g,x+11,y+1,2,5);
+		break;
+	case 5:
+		u8g_draw_box(&u8g,x+2,y+1,2,5);
+		u8g_draw_box(&u8g,x+5,y+1,2,5);
+		u8g_draw_box(&u8g,x+8,y+1,2,5);
+		u8g_draw_box(&u8g,x+11,y+1,2,5);
+		u8g_draw_box(&u8g,x+14,y+1,2,5);
+		break;
+	}
+	u8g_SetFont( &u8g, u8g_font_courB08 );
+	sprintf( str, "%d%%",percentage);
+	u8g_DrawStr( &u8g,  x-25,  y+7, str );
+}
+void u8g_xyputs( uint8_t x, uint8_t y, char *str, uint8_t battery_status)
+{
+	char Str_HM[20],Str_Sec[10];
+	sprintf( Str_HM, "%02d:%02d", Hour, Minute);
+	sprintf( Str_Sec, "%02d", Second);
+	u8g_FirstPage(&u8g);
+	do
+	{
+		u8g_SetFont( &u8g, u8g_font_courB10 );
+		u8g_DrawStr( &u8g,  x,  y, str );
+
+		//u8g_DrawBitmap(&u8g,10,1,16,52,Zeus_logo);
+		u8g_SetFont( &u8g, u8g_font_osb21 );
+		u8g_DrawStr( &u8g, 35,40,&Str_HM[0]);
+
+		u8g_SetFont( &u8g, u8g_font_gdb11 );
+		u8g_DrawStr( &u8g, 108,38,&Str_Sec[0]);
+
+		u8g_battery_status(100,6,battery_status);
+
+
+		u8g_DrawFrame(&u8g,2,2,126,62);
+		u8g_DrawFrame(&u8g,1,1,127,63);
+	} while( u8g_NextPage(&u8g));
+}
 
 /* USER CODE END 4 */
 

@@ -1,0 +1,10 @@
+u8g_com_api.c:42:9:u8g_InitCom	32	static
+u8g_com_api.c:47:6:u8g_StopCom	24	static
+u8g_com_api.c:53:6:u8g_SetChipSelect	32	static
+u8g_com_api.c:58:6:u8g_SetResetLow	24	static
+u8g_com_api.c:63:6:u8g_SetResetHigh	24	static
+u8g_com_api.c:69:6:u8g_SetAddress	32	static
+u8g_com_api.c:74:9:u8g_WriteByte	32	static
+u8g_com_api.c:79:9:u8g_WriteSequence	32	static
+u8g_com_api.c:84:9:u8g_WriteSequenceP	32	static
+u8g_com_api.c:109:9:u8g_WriteEscSeqP	32	static

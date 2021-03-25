@@ -29,3 +29,6 @@
  - PCF8574모듈을 LCD1602에 연결하여 I2C로 LCD 작동
  - GPIO 6개핀사용하던 것을 I2C 2핀사용하여 4개핀을 다른 용도로 사용가능함
  
+ ## 5.1 I2C SSD1306(0.91" oled ) 구동
+ - Olikraus 씨의 u8g2 라이브러리를( https://github.com/olikraus/u8g2 ) 이용한 SSD1306 구동
+ - 시계형식과 battery 충전표시적용함
