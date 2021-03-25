@@ -22,6 +22,7 @@
 #include "adc.h"
 #include "dma.h"
 #include "i2c.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -31,6 +32,7 @@
 #include "I2C_LCD1602.h"
 #include "Zeus_define.h"
 #include "u8g_arm.h"
+#include "SR04.h"
 
 /* USER CODE END Includes */
 
@@ -117,6 +119,7 @@ int main(void)
   MX_USART2_UART_Init();
   MX_ADC1_Init();
   MX_I2C1_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
 
   HAL_ADC_Start_DMA(&hadc1, (uint32_t *)Adc_Value, 1);
@@ -142,6 +145,7 @@ int main(void)
 
   uint16_t AvgAdc=0;
   uint16_t count = 0;
+  float distance = 0;
 
   while (1)
   {
@@ -149,14 +153,18 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	  u8g_xyputs( 10, 55, "Zeus SSD1306",count++);
-	  	  Time_count();
-	  	  if( count >100 ) count = 0;
+	  //distance = SR04_Check_Distance(10);
+	  //sprintf(str, "%f mm", distance );
 
-	  AvgAdc = Average_ADC(200, 10,Adc_Value);
+	  u8g_xyputs( 10, 55, &str[0] ,count++);
 
-	  sprintf( str, "ADC : %4d", AvgAdc );
-	  I2C_LCD1602_Send_String_XY( 0 , 0, str);
+	  Time_count();
+	  if( count >100 ) count = 0;
+
+	  //AvgAdc = Average_ADC(200, 10,Adc_Value);
+
+	  //sprintf( str, "ADC : %4d", AvgAdc );
+	  //I2C_LCD1602_Send_String_XY( 0 , 0, str);
 
 	  //HAL_Delay(500);
 
