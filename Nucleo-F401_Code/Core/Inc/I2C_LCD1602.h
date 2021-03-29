@@ -3,6 +3,7 @@
  *
  *  Created on: 2020. 3. 27.
  *      Author: zeusmaster
+ *      Refterences : Mohamed Yaqoob's Code.
  */
 
 #ifndef LCD1602_H_
@@ -16,13 +17,13 @@
 
 
 // Define for LCD1602
-#define	ALLCLR				0x01
-#define 	ENTMODE			0x06
-#define	DISPLAYON			0x0c
-#define	LSHIFT					0x18
+#define	ALLCLR			0x01
+#define ENTMODE			0x06
+#define	DISPLAYON		0x0c
+#define	LSHIFT			0x18
 #define	FUNCTIONSET		0x2c 	// 4bit mode 2line
 #define	INTERFACE8BIT	0x30
-#define 	MODE4bit			0x20
+#define MODE4bit		0x20
 
 void I2C_LCD1602_Send_Command(unsigned char command);
 void I2C_LCD1602_Send_Data(unsigned char data);

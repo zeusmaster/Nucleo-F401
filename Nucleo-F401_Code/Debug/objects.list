@@ -1,4 +1,5 @@
 "Core/Src/I2C_LCD1602.o"
+"Core/Src/SR04.o"
 "Core/Src/Zeus_define.o"
 "Core/Src/adc.o"
 "Core/Src/dma.o"
@@ -10,6 +11,7 @@
 "Core/Src/syscalls.o"
 "Core/Src/sysmem.o"
 "Core/Src/system_stm32f4xx.o"
+"Core/Src/tim.o"
 "Core/Src/usart.o"
 "Core/Src/u8g/chessengine.o"
 "Core/Src/u8g/u8g_arm.o"

@@ -32,3 +32,8 @@
  ## 5.1 I2C SSD1306(0.91" oled ) 구동
  - Olikraus 씨의 u8g2 라이브러리를( https://github.com/olikraus/u8g2 ) 이용한 SSD1306 구동
  - 시계형식과 battery 충전표시적용함
+
+ ## 6. Peripheral Devices
+ ### 6.1 HC-SR04 초음파센서를 이용한 거리측정
+ - gpio핀 2개를 triger,echo핀에 연결하여 거리측정완료
+ 

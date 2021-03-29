@@ -22,6 +22,7 @@
 #include "adc.h"
 #include "dma.h"
 #include "i2c.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -31,6 +32,7 @@
 #include "I2C_LCD1602.h"
 #include "Zeus_define.h"
 #include "u8g_arm.h"
+#include "SR04.h"
 
 /* USER CODE END Includes */
 
@@ -117,9 +119,13 @@ int main(void)
   MX_USART2_UART_Init();
   MX_ADC1_Init();
   MX_I2C1_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
 
+  printf("Start Init\r\n");
+
   HAL_ADC_Start_DMA(&hadc1, (uint32_t *)Adc_Value, 1);
+  HAL_TIM_Base_Start_IT(&htim1);
 
   u8g_InitComFn(&u8g,&u8g_dev_ssd1306_128x64_i2c,u8g_com_hw_i2c_fn);
 
@@ -142,6 +148,7 @@ int main(void)
 
   uint16_t AvgAdc=0;
   uint16_t count = 0;
+  float distance=0;
 
   while (1)
   {
@@ -149,7 +156,11 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	  u8g_xyputs( 10, 55, "Zeus SSD1306",count++);
+	  distance = SR04_Trigger_out(10);
+	  sprintf(str, "%5d mm",(int)distance );
+
+
+	  u8g_xyputs( 10, 55, str,count++);
 	  	  Time_count();
 	  	  if( count >100 ) count = 0;
 
