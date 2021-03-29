@@ -122,7 +122,10 @@ int main(void)
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
 
+  printf("Start Init\r\n");
+
   HAL_ADC_Start_DMA(&hadc1, (uint32_t *)Adc_Value, 1);
+  HAL_TIM_Base_Start_IT(&htim1);
 
   u8g_InitComFn(&u8g,&u8g_dev_ssd1306_128x64_i2c,u8g_com_hw_i2c_fn);
 
@@ -145,7 +148,9 @@ int main(void)
 
   uint16_t AvgAdc=0;
   uint16_t count = 0;
-  float distance = 0;
+
+  float distance=0;
+
 
   while (1)
   {
@@ -153,8 +158,14 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	  //distance = SR04_Check_Distance(10);
-	  //sprintf(str, "%f mm", distance );
+
+	  distance = SR04_Trigger_out(10);
+	  sprintf(str, "%5d mm",(int)distance );
+
+	  u8g_xyputs( 10, 55, str,count++);
+	  	  Time_count();
+	  	  if( count >100 ) count = 0;
+
 
 	  u8g_xyputs( 10, 55, &str[0] ,count++);
 

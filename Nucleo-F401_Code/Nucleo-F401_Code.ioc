@@ -7,8 +7,12 @@ RCC.CortexFreq_Value=84000000
 ProjectManager.KeepUserCode=true
 Mcu.UserName=STM32F401RETx
 ADC1.ContinuousConvMode=ENABLE
+<<<<<<< HEAD
 TIM1.IPParameters=Prescaler,Period
 SH.S_TIM1_ETR.0=TIM1_ETR,ClockSourceETR_Mode2
+=======
+TIM1.IPParameters=Prescaler
+>>>>>>> f74457c5ef6164e45ddba619d754418bf9247c1f
 RCC.PLLCLKFreq_Value=84000000
 PA14.GPIO_Label=TCK
 RCC.PLLQCLKFreq_Value=24000000
@@ -35,8 +39,12 @@ Mcu.IP3=NVIC
 Mcu.IP0=ADC1
 PB4.GPIOParameters=GPIO_Label
 Mcu.IP1=DMA
+<<<<<<< HEAD
 PA12.Signal=S_TIM1_ETR
 TIM1.Prescaler=8400-1
+=======
+TIM1.Prescaler=84-1
+>>>>>>> f74457c5ef6164e45ddba619d754418bf9247c1f
 Mcu.UserConstants=
 PH0\ -\ OSC_IN.Signal=RCC_OSC_IN
 SH.GPXTI13.ConfNb=1
@@ -59,6 +67,7 @@ Dma.ADC1.0.MemDataAlignment=DMA_MDATAALIGN_HALFWORD
 RCC.AHBFreq_Value=84000000
 Mcu.Pin0=PC13-ANTI_TAMP
 Mcu.Pin1=PC14-OSC32_IN
+GPIO.groupedBy=Group By Peripherals
 Mcu.Pin2=PC15-OSC32_OUT
 Mcu.Pin3=PH0 - OSC_IN
 Mcu.Pin4=PH1 - OSC_OUT
@@ -89,6 +98,7 @@ NVIC.PendSV_IRQn=true\:0\:0\:false\:false\:true\:false\:false
 Dma.RequestsNb=1
 PB6.GPIOParameters=GPIO_Label
 ProjectManager.HalAssertFull=false
+VP_TIM1_VS_ClockSourceINT.Mode=Internal
 ADC1.SamplingTime-0\#ChannelRegularConversion=ADC_SAMPLETIME_84CYCLES
 ProjectManager.ProjectName=Nucleo-F401_Code
 PA13.GPIOParameters=GPIO_Label
@@ -112,7 +122,10 @@ NVIC.BusFault_IRQn=true\:0\:0\:false\:false\:true\:true\:false
 PC4.Locked=true
 Dma.ADC1.0.FIFOMode=DMA_FIFOMODE_DISABLE
 PC5.Signal=GPIO_Output
+<<<<<<< HEAD
 TIM1.Period=10000-1
+=======
+>>>>>>> f74457c5ef6164e45ddba619d754418bf9247c1f
 Dma.Request0=ADC1
 ProjectManager.CustomerFirmwarePackage=
 PC4.GPIOParameters=GPIO_PuPd,GPIO_Label
@@ -157,6 +170,10 @@ PB7.GPIOParameters=GPIO_Label
 Dma.ADC1.0.Priority=DMA_PRIORITY_LOW
 PB9.Mode=I2C
 PC5.GPIOParameters=GPIO_Label
+<<<<<<< HEAD
+=======
+VP_TIM1_VS_ClockSourceINT.Signal=TIM1_VS_ClockSourceINT
+>>>>>>> f74457c5ef6164e45ddba619d754418bf9247c1f
 PB5.Locked=true
 ProjectManager.RegisterCallBack=
 PC15-OSC32_OUT.Signal=RCC_OSC32_OUT
@@ -193,11 +210,19 @@ PB4.Locked=true
 PB3.Signal=SYS_JTDO-SWO
 RCC.SYSCLKFreq_VALUE=84000000
 PB5.Signal=GPIO_Input
+<<<<<<< HEAD
 Mcu.Pin22=VP_SYS_VS_Systick
 Mcu.Pin20=PB8
 ADC1.master=1
 PA3.Locked=true
 Mcu.Pin21=PB9
+=======
+Mcu.Pin22=VP_TIM1_VS_ClockSourceINT
+Mcu.Pin20=PB9
+ADC1.master=1
+PA3.Locked=true
+Mcu.Pin21=VP_SYS_VS_Systick
+>>>>>>> f74457c5ef6164e45ddba619d754418bf9247c1f
 SH.GPXTI4.0=GPIO_EXTI4
 PA5.GPIO_Label=LD2 [Green Led]
 NVIC.ForceEnableDMAVector=true
@@ -211,6 +236,7 @@ PC13-ANTI_TAMP.GPIO_ModeDefaultEXTI=GPIO_MODE_IT_FALLING
 PA14.Signal=SYS_JTCK-SWCLK
 Dma.ADC1.0.MemInc=DMA_MINC_ENABLE
 ProjectManager.HeapSize=0x200
+<<<<<<< HEAD
 Mcu.Pin15=PB3
 NVIC.HardFault_IRQn=true\:0\:0\:false\:false\:true\:true\:false
 Mcu.Pin16=PB4
@@ -223,12 +249,30 @@ ProjectManager.ComputerToolchain=false
 Mcu.Pin17=PB5
 RCC.HSI_VALUE=16000000
 Mcu.Pin18=PB6
+=======
+Mcu.Pin15=PB4
+NVIC.HardFault_IRQn=true\:0\:0\:false\:false\:true\:true\:false
+Mcu.Pin16=PB5
+SH.GPXTI4.ConfNb=1
+Mcu.Pin13=PA14
+Mcu.Pin14=PB3
+Mcu.Pin19=PB8
+NVIC.TIM1_UP_TIM10_IRQn=true\:0\:0\:false\:false\:true\:true\:true
+ProjectManager.ComputerToolchain=false
+Mcu.Pin17=PB6
+RCC.HSI_VALUE=16000000
+Mcu.Pin18=PB7
+>>>>>>> f74457c5ef6164e45ddba619d754418bf9247c1f
 PA5.GPIO_Speed=GPIO_SPEED_FREQ_LOW
 RCC.PLLQ=7
-NVIC.PriorityGroup=NVIC_PRIORITYGROUP_0
+NVIC.PriorityGroup=NVIC_PRIORITYGROUP_1
 ADC1.NbrOfConversionFlag=1
 Mcu.Pin11=PB1
+<<<<<<< HEAD
 Mcu.Pin12=PA12
+=======
+Mcu.Pin12=PA13
+>>>>>>> f74457c5ef6164e45ddba619d754418bf9247c1f
 RCC.PLLM=8
 PB8.Mode=I2C
 RCC.PLLN=84
