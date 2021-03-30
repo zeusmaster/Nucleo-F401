@@ -35,5 +35,5 @@
 
  ## 6. Peripheral Devices
  ### 6.1 HC-SR04 초음파센서를 이용한 거리측정
- - gpio핀 2개를 triger,echo핀에 연결하여 거리측정완료
- 
+ - gpio핀 2개를 triger,echo핀에 연결하여 거리측정 결과를 OLED에 표시
+ - ADC입력값(POTENTIOMETER)를 OLED에 출력(0~4095)

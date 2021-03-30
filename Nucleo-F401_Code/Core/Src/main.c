@@ -158,9 +158,11 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
+	  HAL_Delay(50);
+	  AvgAdc = Average_ADC(200, 10,Adc_Value );
 
 	  distance = SR04_Trigger_out(10);
-	  sprintf(str, "%5d mm",(int)distance );
+	  sprintf(str, "%5d: %4d",(int)distance,AvgAdc );
 
 	  u8g_xyputs( 10, 55, str,count++);
 	  	  Time_count();
@@ -172,9 +174,9 @@ int main(void)
 	  Time_count();
 	  if( count >100 ) count = 0;
 
-	  //AvgAdc = Average_ADC(200, 10,Adc_Value);
 
-	  //sprintf( str, "ADC : %4d", AvgAdc );
+
+
 	  //I2C_LCD1602_Send_String_XY( 0 , 0, str);
 
 	  //HAL_Delay(500);

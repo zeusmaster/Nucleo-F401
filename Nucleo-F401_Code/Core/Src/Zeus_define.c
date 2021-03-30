@@ -67,11 +67,17 @@ uint16_t Average_ADC(uint16_t NumSum,uint8_t NumAvg, uint16_t *Adc)
 	for(int j=0; j < NumAvg ;j++ ) {
 		for(int i=0; i< NumSum ; i++ ) {
 			SumAdc += Adc[0];
+
 		}
+
 		AvgAdc += (uint16_t)( SumAdc / NumSum );
+		printf("Sum: %4d Numsum : %d AvgAdc: %d\r\n", SumAdc, NumSum, AvgAdc );
 		SumAdc = 0;
 	}
+
 	AvgAdc =(uint16_t)(AvgAdc /NumAvg );
+	printf("avgadc: %4d\r\n", AvgAdc );
+
 	return (uint16_t)AvgAdc;
 }
 // =================  End of ADC input(Noise clear) ==================
