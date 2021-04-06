@@ -1,4 +1,5 @@
 Zeus_define.c:14:5:_write	32	static
 Zeus_define.c:21:6:Buzzer_OnOff	24	static
 Zeus_define.c:36:15:Key_input	16	static
-Zeus_define.c:64:10:Average_ADC	56	static
+Zeus_define.c:64:10:Average_ADC	40	static
+Zeus_define.c:80:7:Debouce_Value	32	static

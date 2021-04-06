@@ -6,6 +6,7 @@
  */
 
 #include "SR04.h"
+#include "Zeus_define.h"
 
 float SR04_Echo_HighTime= 0;
 
@@ -37,7 +38,18 @@ float SR04_Trigger_out(char microSec)
 
 	HAL_Delay(10);
 
-	printf("%6.0f mm\r\n",SR04_Echo_HighTime*0.17 );
+	//printf("%6.0f mm\r\n",SR04_Echo_HighTime*0.17 );
 
 	return SR04_Echo_HighTime*0.17;
+}
+
+float get_SR04_value(uint8_t NumCheck, float *distance)
+{
+	for(int i = 0 ; i < NumCheck ; i++ ) {
+		distance[i] = SR04_Trigger_out(10);
+		printf(" %6f", distance[i]);
+	}
+	printf("\r\n avg dist : %f\r\n",Debouce_Value(NumCheck, 1, &distance[0]) );
+
+	return Debouce_Value(NumCheck, 1, &distance[0]);
 }

@@ -33,6 +33,7 @@
 #include "Zeus_define.h"
 #include "u8g_arm.h"
 #include "SR04.h"
+#include "TM1637.h"
 
 /* USER CODE END Includes */
 
@@ -131,6 +132,7 @@ int main(void)
 
   I2C_LCD1602_Init();
 
+
   I2C_LCD1602_Send_String_XY( 0 , 0, "Welcom Zeus");
   I2C_LCD1602_Send_String_XY( 0 , 1, "I2C PCF8574");
   HAL_Delay(2000);
@@ -139,6 +141,7 @@ int main(void)
   sprintf( str, "start");
   I2C_LCD1602_Send_string(str);
 
+  TM1637_bright(1);
 
   /* USER CODE END 2 */
 
@@ -146,11 +149,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   Buzzer_OnOff(1);
 
-  uint16_t AvgAdc=0;
   uint16_t count = 0;
 
-  float distance=0;
-
+  float distance=0,sr04_value[5];
 
   while (1)
   {
@@ -158,25 +159,24 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	  HAL_Delay(50);
-	  AvgAdc = Average_ADC(200, 10,Adc_Value );
+	  distance = get_SR04_value(3, &sr04_value[0]);
+	  sprintf(str, "%4d : %4d ",(int)distance,Adc_Value[0]  );
 
-	  distance = SR04_Trigger_out(10);
-	  sprintf(str, "%5d: %4d",(int)distance,AvgAdc );
+	  TM1637_bright( Adc_Value[0]/585);
+	  TM1637_Display_4digit( (int)distance);
 
 	  u8g_xyputs( 10, 55, str,count++);
-	  	  Time_count();
-	  	  if( count >100 ) count = 0;
-
+  	  Time_count();
+  	  if( count >100 ) count = 0;
 
 	  u8g_xyputs( 10, 55, &str[0] ,count++);
 
 	  Time_count();
 	  if( count >100 ) count = 0;
 
+	  //AvgAdc = Average_ADC(200, 10,Adc_Value);
 
-
-
+	  //sprintf( str, "ADC : %4d", AvgAdc );
 	  //I2C_LCD1602_Send_String_XY( 0 , 0, str);
 
 	  //HAL_Delay(500);

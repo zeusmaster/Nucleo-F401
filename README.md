@@ -37,3 +37,8 @@
  ### 6.1 HC-SR04 초음파센서를 이용한 거리측정
  - gpio핀 2개를 triger,echo핀에 연결하여 거리측정 결과를 OLED에 표시
  - ADC입력값(POTENTIOMETER)를 OLED에 출력(0~4095)
+
+  ### 6.2 TM1637 4 FND module에 거리표시
+ - FND 4 digit에 거리를 표시
+ - FND 숫자의 밝기는 Potentiometer를통해 ADC입력받은값을 7단계로 나누어 밝기조절함
+ 

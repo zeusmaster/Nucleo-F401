@@ -21,5 +21,5 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
 
 float SR04_Trigger_out(char microSec);
-
+float get_SR04_value(uint8_t NumCheck, float *distance);
 

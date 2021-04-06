@@ -27,3 +27,4 @@ void Buzzer_OnOff(int times);
 unsigned char Key_input(void);
 
 uint16_t Average_ADC(uint16_t NumSum, uint8_t NumAvg, uint16_t *Adc);
+float Debouce_Value(uint16_t NumSum,uint8_t NumAvg, float *value);

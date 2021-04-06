@@ -1,5 +1,6 @@
 "Core/Src/I2C_LCD1602.o"
 "Core/Src/SR04.o"
+"Core/Src/TM1637.o"
 "Core/Src/Zeus_define.o"
 "Core/Src/adc.o"
 "Core/Src/dma.o"
