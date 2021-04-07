@@ -23,6 +23,12 @@ const char fnd[] = {
     0x00
 };
 
+const char fnd_wave[] = {
+		0x40, 0x40, 0x40, 0x40, 0x20,
+		0x01, 0x01, 0x01, 0x01, 0x04,
+		0x08, 0x08, 0x08, 0x08
+};
+
 void delay_usec(uint16_t usec)
 {
 	volatile uint32_t i,j;
@@ -39,13 +45,13 @@ void TM1637_Start()
 	TM1637_Clk_High();
 	TM1637_Dio_High(); delay_usec(tick);
 	TM1637_Dio_Low(); delay_usec(tick);
-	TM1637_Clk_Low();
+	TM1637_Clk_Low(); delay_usec(tick);
 }
 
 void TM1637_Send_Byte(uint8_t byte)
 {
 	for( uint8_t i=0 ; i <8 ; i++ ) {
-		TM1637_Clk_Low();
+		TM1637_Clk_Low(); delay_usec(tick);
 
 		if( byte & 0x01 ) {TM1637_Dio_High();}
 		else TM1637_Dio_Low();
@@ -66,7 +72,7 @@ void TM1637_Read_Ack()
 
 void TM1637_Stop()
 {
-	TM1637_Clk_Low();
+	TM1637_Clk_Low(); delay_usec(tick);
 	TM1637_Dio_Low(); delay_usec(tick);
 	TM1637_Clk_High(); delay_usec(tick);
 }
@@ -79,7 +85,7 @@ void TM1637_bright(uint8_t num)
 	TM1637_Stop();
 }
 
-void TM1637_Display_4digit(uint16_t num)
+void TM1637_Display_4digit(uint8_t brightness, uint16_t num)
 {
 	uint8_t digit[4], i;
 	for( i = 0; i < 4 ; i++ ) {
@@ -99,14 +105,20 @@ void TM1637_Display_4digit(uint16_t num)
 
 	// data1...data4
 	for( i = 0; i < 4 ; i++ ) {
-		TM1637_Start();
 		TM1637_Send_Byte( fnd[ digit[3-i] ]);
 		TM1637_Read_Ack();
 	}
 
 	// command3 => control display
 	TM1637_Start();
-	TM1637_Send_Byte(0x88);
+	TM1637_Send_Byte( brightness );
 	TM1637_Read_Ack();
 	TM1637_Stop();
+}
+
+void TM1637_count_down(uint16_t num)
+{
+	for(uint16_t i=0; i< num ; i++) {
+		TM1637_Display_4digit( 7, i ); HAL_Delay(20);
+	}
 }

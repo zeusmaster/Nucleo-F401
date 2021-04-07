@@ -141,6 +141,8 @@ int main(void)
   sprintf( str, "start");
   I2C_LCD1602_Send_string(str);
 
+  Buzzer_OnOff(1);
+
   TM1637_bright(1);
 
   /* USER CODE END 2 */
@@ -149,6 +151,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   Buzzer_OnOff(1);
 
+  uint8_t brightness = 1,prev_brightness = 1;
   uint16_t count = 0;
 
   float distance=0,sr04_value[5];
@@ -159,11 +162,18 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	  distance = get_SR04_value(3, &sr04_value[0]);
-	  sprintf(str, "%4d : %4d ",(int)distance,Adc_Value[0]  );
 
-	  TM1637_bright( Adc_Value[0]/585);
-	  TM1637_Display_4digit( (int)distance);
+	  distance = get_SR04_value(3, &sr04_value[0]);
+	  sprintf(str, "%4d : %4d ",(int)distance, Adc_Value[0] );
+
+	  brightness = (int)( Adc_Value[0]/512);
+	  if( prev_brightness != brightness ) {
+		  TM1637_bright( brightness );
+		  prev_brightness = brightness;
+	  }
+
+	  printf("%4d  %4d\r\n",(int)distance, brightness );
+	  TM1637_Display_4digit( brightness, (int)distance); HAL_Delay(1000);
 
 	  u8g_xyputs( 10, 55, str,count++);
   	  Time_count();
@@ -171,8 +181,6 @@ int main(void)
 
 	  u8g_xyputs( 10, 55, &str[0] ,count++);
 
-	  Time_count();
-	  if( count >100 ) count = 0;
 
 	  //AvgAdc = Average_ADC(200, 10,Adc_Value);
 

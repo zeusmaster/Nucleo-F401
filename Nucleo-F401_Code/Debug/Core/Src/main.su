@@ -1,6 +1,6 @@
 main.c:68:6:Time_count	4	static
-main.c:92:5:main	56	static
-main.c:214:6:SystemClock_Config	88	static
-main.c:255:6:u8g_battery_status	32	static
-main.c:300:6:u8g_xyputs	56	static
-main.c:332:6:Error_Handler	4	static
+main.c:92:5:main	64	static
+main.c:222:6:SystemClock_Config	88	static
+main.c:263:6:u8g_battery_status	32	static
+main.c:308:6:u8g_xyputs	56	static
+main.c:340:6:Error_Handler	4	static

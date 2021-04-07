@@ -47,9 +47,9 @@ float get_SR04_value(uint8_t NumCheck, float *distance)
 {
 	for(int i = 0 ; i < NumCheck ; i++ ) {
 		distance[i] = SR04_Trigger_out(10);
-		printf(" %6f", distance[i]);
+		//printf(" %6f", distance[i]);
 	}
-	printf("\r\n avg dist : %f\r\n",Debouce_Value(NumCheck, 1, &distance[0]) );
+	//printf("\r\n avg dist : %f\r\n",Debouce_Value(NumCheck, 1, &distance[0]) );
 
 	return Debouce_Value(NumCheck, 1, &distance[0]);
 }
